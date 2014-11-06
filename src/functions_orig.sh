@@ -1,5 +1,5 @@
 # MAIN PROJECT (AND IDEA) by jmccain--- hit me up  aim : evil [at] onlythechosen.com 
-mesg y
+$(mesg y)
 
 
 ### I took these from https://wiki.softlayer.local/wiki/index.php/User:Jciancimino --- gotta give shouts apparently he was a CST that knew what he was doing as well.  Sadly I had to rewrite a lot of them to make them work but yeah...
