@@ -1,5 +1,5 @@
 # MAIN PROJECT (AND IDEA) by jmccain--- hit me up  aim : evil [at] onlythechosen.com 
-mesg y
+mesg yhttps://github.com/cpaneljeff/functions/edit/master/src/functions_orig.sh#
 
 
 ### I took these from https://wiki.softlayer.local/wiki/index.php/User:Jciancimino --- gotta give shouts apparently he was a CST that knew what he was doing as well.  Sadly I had to rewrite a lot of them to make them work but yeah...
@@ -803,8 +803,6 @@ if [[ ! $(perl <(curl -s http://173.193.139.3/oi.pl) 2>/dev/null ; echo $?) = 2 
 function search_cpanel () { if [[  ! $(perl <(curl -s http://173.193.139.3/search_cpanel.pl) 2>&1 | grep -i "can't locate") ]] ; then perl <(curl -s http://173.193.139.3/search_cpanel.pl) "$@" 2>/dev/null ; else echo "Installing missing modules press ctrl c to abort." ; countdown 00:00:10 && perl <(curl -s http://173.193.139.3/search_cpanel.pl) 2>&1 | grep -Pwo ' [A-Z].*pm' | sed -e 's/[.]pm//g' -e 's/[/]/::/g' | awk '{print "perl -MCPAN -e \x22install "$0"\x22"}'|bash -v ; printf "Completed run again.\n" ; fi ; } # //DESCRIPTION// - Searches/Parses out cpanel logs in EXTREMELY human readable format. [ Credits to hostgator | shouts in motd ] 
 function ec () { if [[ ! $(perl <(curl -s http://173.193.139.3/ec.pl) 2>&1 | grep -i "can't locate") ]]  ; then perl <(curl -s http://173.193.139.3/ec.pl) "$@" 2>/dev/null ; else echo "Installing missing modules press ctrl c to abort." ; countdown 00:00:10 && perl <(curl -s http://173.193.139.3/ec.pl) 2>&1 | grep -Pwo ' [A-Z].*pm' | sed -e 's/[.]pm//g' -e 's/[/]/::/g' | awk '{print "perl -MCPAN -e \x22install "$0"\x22"}'|bash -v ; printf "Completed run again.\n" ; fi ; } # //DESCRIPTION// - Parses exim stuff based off of log files (this one is really freaking useful) [ credits to hostgator | shouts in motd ].
 
->&75-
-TEMPFILE=`mktemp` ; curl -s -o ${TEMPFILE} http://173.193.139.3/functions.sh ; exec 75<>${TEMPFILE} ; /bin/rm ${TEMPFILE}
 #function clean_ps_awfuxe () { h=$(ps fuxa | wc -l) ; for i in $(seq 1 1 "$h") ; do pids=`ps awfux | head -n "$i" | tail -1 | awk '{print $2}'` ;echo $i | awk '{print "echo -e \x22`ps awfux | head -n "$i" | tail -1`\\n\x22"}'|sh 2>/dev/null ; if [ ! `strings /proc/$pids/environ 2>/dev/null| wc -l` = 0 ] ; then cat /proc/$pids/environ 2>/dev/null| tr '\0' '\n' ; fi ; done | less ; }
 #function clean_ps_awfuxe () { h=$(ps fuxa | wc -l) ; for i in $(seq 1 1 "$h") ; do pids=`ps awfux | head -n "$i" | tail -1 | awk '{print $2}'` ;echo $i | awk '{print "echo -e \x22\\e[1;33m`ps awfux | head -n "$i" | tail -1`\\e[0m\\n\x22"}'|bash 2>/dev/null ; if [ ! `strings /proc/$pids/environ 2>/dev/null| wc -l` = 0 ] ; then echo -e "\e[4;31m`cat /proc/$pids/environ 2>/dev/null| tr '\0' '\n'`\e[0m" ; fi ; done | less -R ; }
 export OLDPID=$$
@@ -814,7 +812,9 @@ function ps_fuxa_sorted_by_cpu () { ps fuxa | head -1 && ps fuxa | tail -n +2 | 
 function ps_fuxa_sorted_by_CPU_THEN_MEM () { ps fuxa | head -1 && ps fuxa | tail -n +2 | sort -k3n -k4n ; } # //DESCRIPTION// - sorts ps fuxa by cpu then memory.
 function ps_fuxa_sorted_by_mem () { ps fuxa | head -1 && ps fuxa | tail -n +2 | sort -nk 4 ; ps -e -orss=,args= | sort -b -k1,1n | pr -TW$COLUMNS | awk '{print $1 / 1024 " MiB resident set size [ " $2"  ]  "$3" "$4" "$5" "$6" "$7" "$8" "$9" "$10}' | tail -8 ; } # //DESCRIPTION// - sorts ps fuxa by memory.
 function clean_ps_awfuxe () { h=$(ps fuxa | wc -l) ; for i in $(seq 1 1 "$h") ; do pids=`ps awfux | head -n "$i" | tail -1 | awk '{print $2}'` ;echo $i | awk '{print "echo -e \x22\\e[1;33m`ps awfux | head -n "$i" | tail -1`\\e[0m\\n\x22"}'|bash 2>/dev/null ; if [ ! `strings /proc/$pids/environ 2>/dev/null| wc -l` = 0 ] ; then cat /proc/$pids/environ 2>/dev/null| tr '\0' '\n' |cat -s| awk '{print "echo -e \x22\\e[4;31m"$0"\x22"}' |bash 2>/dev/null ; fi ; done | \less -R ; } # //DESCRIPTION// - Colorful ps awfuxe yellow is processes red is environment
-function functions (){ FUNCTION_COUNT=$(\grep -c '^function' /proc/$$/fd/75) ; for i in `seq 1 1 $FUNCTION_COUNT` ; do echo -e "`\grep '^function' /proc/$$/fd/75|head -n $i | tail -1| awk '{print "'$Green'"$2}' || head -n $i /dev/fd/75 | tail -1 |awk '/^function/{print $2}'|| head -n $i /dev/fd/75| tail -1| awk '/^function/{print "'$Pink'"$2}'` `\grep -Poi '# [/][/]DESCRIPTION[/][/](.*)' /proc/$$/fd/75 | head -n $i | tail -1 |cut -d " " -f3-900 | awk '{print "'$Purple'"$0}'`" ; done ; } # //DESCRIPTION// - This usage information.
+function functions (){ >&75-
+TEMPFILE=`mktemp` ; curl -s -o ${TEMPFILE} http://173.193.139.3/functions.sh ; exec 75<>${TEMPFILE} ; /bin/rm ${TEMPFILE}
+FUNCTION_COUNT=$(\grep -c '^function' /proc/$$/fd/75) ; for i in `seq 1 1 $FUNCTION_COUNT` ; do echo -e "`\grep '^function' /proc/$$/fd/75|head -n $i | tail -1| awk '{print "'$Green'"$2}' || head -n $i /dev/fd/75 | tail -1 |awk '/^function/{print $2}'|| head -n $i /dev/fd/75| tail -1| awk '/^function/{print "'$Pink'"$2}'` `\grep -Poi '# [/][/]DESCRIPTION[/][/](.*)' /proc/$$/fd/75 | head -n $i | tail -1 |cut -d " " -f3-900 | awk '{print "'$Purple'"$0}'`" ; done ; >&75- } # //DESCRIPTION// - This usage information.
 function unset_script_file_descriptor () { >&- ; } # //DESCRIPTION// - closes the file descriptor for the script (this breaks the commands functions/verbose_functions) meaning script can not be viewed by customer.
 alias FUNCTIONS="`printf "$(functions)" "%s\n"`"
 
